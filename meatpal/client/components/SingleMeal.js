@@ -1,12 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, TextInput, Image, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  Image,
+  FlatList
+} from "react-native";
 import { StackNavigator } from "react-navigation";
 import { connect } from "react-redux";
 
 import { fetchMeals } from "../reducers";
 
-class Meals extends React.Component {
-  componentDidMount(){
+class SingleMeal extends React.Component {
+  componentDidMount() {
     this.props.fetchMealsFromServer();
   }
 
@@ -15,16 +23,21 @@ class Meals extends React.Component {
       <View>
         <FlatList
           data={this.props.meals}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
               <View id={item.id}>
-                <Text style={{fontSize: 24, fontWeight: "bold"}}>{item.name}</Text>
-                <Image source={{uri: item.imageUrl}} style={{height: 200, width: 500}}/>
+                <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+                  {item.name}
+                </Text>
+                <Image
+                  source={{ uri: item.imageUrl }}
+                  style={{ height: 200, width: 500 }}
+                />
                 <Text>{item.restaurant}</Text>
                 <Text>{item.location}</Text>
               </View>
-            )}
-          }
+            );
+          }}
         />
       </View>
     );
@@ -51,7 +64,6 @@ const mapDispatchToProps = function(dispatch) {
       return dispatch(fetchMeals());
     }
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Meals);
-

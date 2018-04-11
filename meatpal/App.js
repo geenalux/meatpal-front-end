@@ -2,6 +2,9 @@ import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { StackNavigator } from "react-navigation";
 
+import { Provider } from "react-redux";
+import store from "./client/store";
+
 import Home from "./client/components/Home";
 import Meals from "./client/components/Meals";
 
@@ -22,7 +25,11 @@ const RootNavigator = StackNavigator({
 
 export default class App extends React.Component {
   render() {
-    return <RootNavigator />;
+    return (
+      <Provider store={store}>
+        <RootNavigator />
+      </Provider>
+    );
   }
 }
 
