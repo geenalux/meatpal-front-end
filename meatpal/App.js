@@ -7,6 +7,7 @@ import store from "./client/store";
 
 import Home from "./client/components/Home";
 import Meals from "./client/components/Meals";
+import SingleMeal from "./client/components/SingleMeal";
 
 const RootNavigator = StackNavigator({
   Main: {
@@ -20,6 +21,12 @@ const RootNavigator = StackNavigator({
     navigationOptions: {
       headerTitle: "Meals"
     }
+  },
+  Meal: {
+    screen: SingleMeal,
+    navigationOptions: {
+      headerTitle: "SingleMeal"
+  }
   }
 });
 

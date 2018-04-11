@@ -11,32 +11,40 @@ import {
 import { StackNavigator } from "react-navigation";
 import { connect } from "react-redux";
 
-import { fetchMeals } from "../reducers";
+import { fetchMeal } from "../reducers";
+
+import MapView from "react-native-maps";
 
 class SingleMeal extends React.Component {
   componentDidMount() {
-    this.props.fetchMealsFromServer();
+    this.props.fetchMealFromServer(this.props.selectedMeal);
   }
 
   render() {
     return (
-      <View>
-        <FlatList
-          data={this.props.meals}
-          renderItem={({ item }) => {
-            return (
-              <View id={item.id}>
-                <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-                  {item.name}
-                </Text>
-                <Image
-                  source={{ uri: item.imageUrl }}
-                  style={{ height: 200, width: 500 }}
-                />
-                <Text>{item.restaurant}</Text>
-                <Text>{item.location}</Text>
-              </View>
-            );
+      <View style={{ flex: 1 }}>
+        <View>
+          <Text style={{ fontSize: 48, fontWeight: "bold" }}>
+            {this.props.selectedMeal.name}
+          </Text>
+          <Image
+            source={{ uri: this.props.selectedMeal.imageUrl }}
+            style={{ height: 200, width: 500 }}
+          />
+          <Text style={{ fontSize: 32 }}>
+            {this.props.selectedMeal.restaurant}
+          </Text>
+          <Text style={{ fontSize: 32 }}>
+            {this.props.selectedMeal.location}
+          </Text>
+        </View>
+        <MapView
+          style={{ bottom: 0, position: 'absolute' }}
+          initialRegion={{
+            latitude: -74.009,
+            longitude: 40.705,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.05
           }}
         />
       </View>
@@ -45,8 +53,17 @@ class SingleMeal extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  map: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0
+  },
   container: {
-    flex: 1,
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
     alignItems: "center",
     justifyContent: "center"
   }
@@ -54,16 +71,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = function(state) {
   return {
-    meals: state.meals
+    selectedMeal: state.meals[0]
   };
 };
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    fetchMealsFromServer: function() {
-      return dispatch(fetchMeals());
+    fetchMealFromServer: function(meal) {
+      return dispatch(fetchMeal(meal));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Meals);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleMeal);
