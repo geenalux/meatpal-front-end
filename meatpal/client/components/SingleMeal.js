@@ -39,12 +39,12 @@ class SingleMeal extends React.Component {
           </Text>
         </View>
         <MapView
-          style={{ bottom: 0, position: 'absolute' }}
+          style={{ flex: 1 }}
           initialRegion={{
-            latitude: -74.009,
-            longitude: 40.705,
-            latitudeDelta: 0.1,
-            longitudeDelta: 0.05
+            latitude: 40.705,
+            longitude: -74.009,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
           }}
         />
       </View>
